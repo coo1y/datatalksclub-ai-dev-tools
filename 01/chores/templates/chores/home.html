@@ -1,0 +1,51 @@
+{% extends 'chores/base.html' %}
+
+{% block content %}
+    {% if current_week %}
+        <h1>{{ current_week }}</h1>
+        <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Chore</th><th>Assigned to</th><th>Status</th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for chore in chores %}
+                    <tr>
+                        <td>{{ chore.name }}</td>
+                        <td>{{ chore.assigned_to.name }}</td>
+                        <td>
+                            {% if chore.completed %}
+                                Done by {{ chore.completed_by.name }} at {{ chore.completed_at|date:'D, H:i' }}
+                            {% else %}
+                                Not done
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if current_person %}
+                                <form method="post" action="{% url 'chores:toggle_chore' chore.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit">
+                                        {% if chore.completed %}Mark not done{% else %}Mark done{% endif %}
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4">
+                            No chores yet &mdash; add some in <a href="{% url 'chores:plan' %}">Weekly Planning</a>.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    {% else %}
+        <p>No week has been started yet. Go to <a href="{% url 'chores:plan' %}">Weekly Planning</a> to start one.</p>
+    {% endif %}
+
+    {% if not current_person %}
+        <p><a href="{% url 'chores:login' %}">Log in</a> to check off chores.</p>
+    {% endif %}
+{% endblock %}

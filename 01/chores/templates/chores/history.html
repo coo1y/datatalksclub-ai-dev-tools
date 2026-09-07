@@ -1,0 +1,14 @@
+{% extends 'chores/base.html' %}
+
+{% block title %}History &mdash; Chore Tracker{% endblock %}
+
+{% block content %}
+    <h1>History</h1>
+    <ul>
+        {% for week in weeks %}
+            <li><a href="{% url 'chores:week_detail' week.id %}">{{ week }}</a></li>
+        {% empty %}
+            <li>No weeks yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

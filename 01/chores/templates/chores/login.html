@@ -1,0 +1,17 @@
+{% extends 'chores/base.html' %}
+
+{% block title %}Log in &mdash; Chore Tracker{% endblock %}
+
+{% block content %}
+    <h1>Who are you?</h1>
+    <form method="post">
+        {% csrf_token %}
+        <select name="person_id" required>
+            {% for person in people %}
+                <option value="{{ person.pk }}">{{ person.name }}</option>
+            {% endfor %}
+        </select>
+        <input type="password" name="pin" placeholder="PIN" inputmode="numeric" autocomplete="off" required>
+        <button type="submit">Log in</button>
+    </form>
+{% endblock %}

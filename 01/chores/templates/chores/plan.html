@@ -1,0 +1,55 @@
+{% extends 'chores/base.html' %}
+
+{% block title %}Weekly Planning &mdash; Chore Tracker{% endblock %}
+
+{% block content %}
+    <h1>Weekly Planning</h1>
+
+    {% if current_week %}
+        <h2>{{ current_week }}</h2>
+        <div class="table-wrap">
+        <table>
+            <thead>
+                <tr><th>Chore</th><th>Assigned to</th><th></th></tr>
+            </thead>
+            <tbody>
+                {% for chore in chores %}
+                    <tr>
+                        <td>{{ chore.name }}</td>
+                        <td>{{ chore.assigned_to.name }}</td>
+                        <td>
+                            <a href="{% url 'chores:edit_chore' chore.id %}">Edit</a>
+                            <form method="post" action="{% url 'chores:delete_chore' chore.id %}" style="display:inline">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr><td colspan="3">No chores yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+
+        {% if current_person %}
+            <h3>Add a chore</h3>
+            <form method="post" action="{% url 'chores:add_chore' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add chore</button>
+            </form>
+        {% else %}
+            <p><a href="{% url 'chores:login' %}">Log in</a> to add chores.</p>
+        {% endif %}
+    {% else %}
+        <p>No week has been started yet.</p>
+    {% endif %}
+
+    {% if current_person and not started_today %}
+        <form method="post" action="{% url 'chores:start_week' %}">
+            {% csrf_token %}
+            <button type="submit">Start new week</button>
+        </form>
+    {% endif %}
+{% endblock %}

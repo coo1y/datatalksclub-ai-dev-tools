@@ -1,0 +1,13 @@
+{% extends 'chores/base.html' %}
+
+{% block title %}Edit Chore &mdash; Chore Tracker{% endblock %}
+
+{% block content %}
+    <h1>Edit chore</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+    </form>
+    <p><a href="{% url 'chores:plan' %}">Back to plan</a></p>
+{% endblock %}

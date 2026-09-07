@@ -1,0 +1,26 @@
+1. Which coding agent did you use?
+Claude Code
+
+2. What are the 2-4 features your spec settled on?
+**Weekly planning session** — the group opens the app together and defines the week's chore list, assigning each chore to a person.
+**Daily use** — anyone can open the app, log in with their PIN, and check off chores as they complete them.
+**Missed chores** — if a chore isn't checked off, it simply stays visibly undone. No punishment, no auto-reassignment.
+**History review** — anyone can look back at past weeks to see who completed or missed which chores.
+
+3. Which file do you edit to include your app in the Django project?
+`chore_tracker/settings.py` — you add the app to the INSTALLED_APPS list. That's what I did
+  earlier when registering chores
+
+4. What is task 1 in your backlog.md?
+Milestone 1 — Data Model
+- `Person` model: name, PIN (hashed), active flag
+- `Week` model: start date, end date (or just start date + auto-computed range)
+- `Chore` model: week (FK), name, assigned person (FK), completed flag, completed_by (FK, nullable), completed_at (nullable)
+- Register all models in `admin.py` for quick data inspection/debugging
+- Initial migration + smoke test in Django admin
+
+5. Which command starts the Django development server?
+`uv run python manage.py runserver`
+
+6. Which command runs the tests in the terminal?
+`uv run python manage.py test`

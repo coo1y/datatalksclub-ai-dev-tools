@@ -219,3 +219,4 @@ __marimo__/
 
 # Others
 .DS_Store
+venv/

@@ -1,0 +1,32 @@
+{% extends 'chores/base.html' %}
+
+{% block title %}{{ week }} &mdash; Chore Tracker{% endblock %}
+
+{% block content %}
+    <h1>{{ week }}</h1>
+    <div class="table-wrap">
+    <table>
+        <thead>
+            <tr><th>Chore</th><th>Assigned to</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+            {% for chore in chores %}
+                <tr>
+                    <td>{{ chore.name }}</td>
+                    <td>{{ chore.assigned_to.name }}</td>
+                    <td>
+                        {% if chore.completed %}
+                            Done by {{ chore.completed_by.name }} at {{ chore.completed_at|date:'D, H:i' }}
+                        {% else %}
+                            Missed
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr><td colspan="3">No chores were recorded for this week.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <p><a href="{% url 'chores:history' %}">Back to history</a></p>
+{% endblock %}
