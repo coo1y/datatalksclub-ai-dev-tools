@@ -1,0 +1,9 @@
+curl -X POST http://localhost:8000/api/matches/epl-r11-tottenham-liverpool/events \
+  -H "Content-Type: application/json" \
+  -d '{
+        "minute": 61,
+        "type": "goal",
+        "teamId": "liverpool",
+        "playerId": "liverpool-p12",
+        "assistPlayerId": "liverpool-p9"
+      }'
