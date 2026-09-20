@@ -1,0 +1,17 @@
+1.  Which description matches the project's architecture?
+Agents claim tasks from a DB through an HTTP API.
+
+2. Which task status does the sender see after the recipient submits its result?
+completed
+
+3. Which Docker option publishes a container's port to your machine?
+-p
+
+4. Which hostname should the API use to connect to the postgres service in Docker Compose?
+postgres
+
+5. Which Kubernetes resource keeps the requested number of application replicas running and manages updates?
+Deployment
+
+6. What should happen if a test fails in this workflow?
+Keep the existing version running and stop the deployment.
